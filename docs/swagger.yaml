@@ -1,0 +1,66 @@
+definitions:
+  models.Operation:
+    properties:
+      number_one:
+        type: number
+      number_two:
+        type: number
+      operator:
+        type: string
+    required:
+    - number_one
+    - number_two
+    - operator
+    type: object
+  models.ServerErrorResponse:
+    properties:
+      error:
+        type: string
+      success:
+        type: boolean
+    type: object
+  models.ServerSuccessResponse:
+    properties:
+      result:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: Swagger API for Golang Project REST CALCULATOR.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: REST CALCULATOR Swagger API
+  version: "1.0"
+paths:
+  /execute:
+    post:
+      consumes:
+      - application/json
+      description: Performs a mathematical operation
+      parameters:
+      - description: Enter operation
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ServerSuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ServerErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ServerErrorResponse'
+swagger: "2.0"
